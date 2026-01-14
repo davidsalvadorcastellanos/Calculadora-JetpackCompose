@@ -9,14 +9,29 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+
+import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AcUnit
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.BottomAppBar
+
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,24 +40,63 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.Gris
-import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Calculadora()
+            PantallaCompleta()
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PantallaCompleta(){
+    Scaffold (
+
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text("Calculadora") },
+                navigationIcon = {
+                    IconButton(onClick = {  }) {
+                        Icon(Icons.Default.ArrowBackIosNew, contentDescription = "Atras")
+                    }
+                }
+            )
+        },
+
+        bottomBar = {
+            BottomAppBar(
+                actions = {
+                    Row {
+                        IconButton(onClick = {  },
+                            modifier = Modifier.weight(1f)) {
+                            Icon(Icons.Filled.Check, contentDescription = "Localized description")
+                        }
+                        FloatingActionButton(
+                            onClick = {  },
+                        ) {
+                            Icon(Icons.Filled.Add, "Localized description")
+                        }
+                        IconButton(onClick = {  },
+                            modifier = Modifier.weight(1f)) {
+                            Icon(Icons.Filled.AcUnit, contentDescription = "Localized description")
+                        }
+                    }
+                }
+            )
+        },
+        floatingActionButtonPosition = FabPosition.End
+    ) { _ ->
+        Calculadora()
+    }
+}
 @Composable
 fun Calculadora(modifier: Modifier = Modifier){
 
